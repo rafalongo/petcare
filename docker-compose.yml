@@ -1,0 +1,40 @@
+version: "3.9"
+
+services:
+  db_petcare:
+    image: mysql:5.7
+    container_name: mysql_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: petcare_db
+      MYSQL_USER: pet
+      MYSQL_PASSWORD: pet
+    ports:
+      - "3307:3306"
+    volumes:
+      - db_data:/var/lib/mysql
+      - ./petcare_db.sql:/docker-entrypoint-initdb.d/petcare_db.sql
+
+  app_petcare:
+    build: .
+    container_name: node_api
+    restart: always
+    working_dir: /usr/src/app
+    volumes:
+      - ./src:/usr/src/app/src
+      - ./package.json:/usr/src/app/package.json
+      - ./tsconfig.json:/usr/src/app/tsconfig.json
+    ports:
+      - "3001:3001"
+    depends_on:
+      - db_petcare
+    environment:
+      DB_HOST: db_petcare
+      DB_USER: pet
+      DB_PASSWORD: pet
+      DB_NAME: petcare_db
+      JWT_SECRET: mysecret
+
+volumes:
+  db_data:
