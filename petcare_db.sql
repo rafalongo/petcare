@@ -30,11 +30,11 @@ CREATE TABLE pets (
     id INT AUTO_INCREMENT PRIMARY KEY,
     user_id INT NOT NULL,
     name VARCHAR(100) NOT NULL,
-    species ENUM('cachorro', 'gato', 'outro') DEFAULT 'cachorro',
+    species ENUM('dog', 'cat', 'other') DEFAULT 'dog',
     breed VARCHAR(100),
     birth_date DATE,
     weight DECIMAL(5, 2),
-    gender ENUM('macho', 'fêmea', 'outro') DEFAULT 'outro',
+    gender ENUM('male', 'female', 'other') DEFAULT 'other',
     photo_url VARCHAR(255),
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP,
     updated_at DATETIME DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
@@ -48,7 +48,7 @@ CREATE TABLE vaccines (
     id INT AUTO_INCREMENT PRIMARY KEY,
     name VARCHAR(100) NOT NULL,
     description TEXT,
-    species ENUM('cachorro', 'gato', 'outro') DEFAULT 'cachorro',
+    species ENUM('dog', 'cat', 'other') DEFAULT 'dog',
     recommended_age_weeks INT,
     periodicity_months INT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
@@ -88,7 +88,7 @@ CREATE TABLE medications (
         'outro'
     ) DEFAULT 'outro',
     description TEXT,
-    species ENUM('cachorro', 'gato', 'outro') DEFAULT 'cachorro',
+    species ENUM('dog', 'cat', 'other') DEFAULT 'dog',
     periodicity_days INT,
     created_at DATETIME DEFAULT CURRENT_TIMESTAMP
 );
@@ -204,15 +204,9 @@ INSERT INTO
     )
 VALUES (
         'Rafael Longo',
-        'rafael@example.com',
-        'hash_teste_123',
-        '+55 11 99999-9999'
-    ),
-    (
-        'Maria Souza',
-        'maria@example.com',
-        'hash_teste_456',
-        '+55 21 98888-8888'
+        'rafalongo@gmail.com',
+        '$2b$10$0DgSzZkjUPKZK/G6eTzM..MR50Bls4RAGuvPEoJlQGGD4uB9XBBTa',
+        '+55 11 98871-9926'
     );
 
 -- Pets
@@ -229,23 +223,43 @@ INSERT INTO
     )
 VALUES (
         1,
-        'Thor',
-        'cachorro',
-        'Labrador',
-        '2022-05-10',
-        28.5,
-        'macho',
-        'https://example.com/thor.jpg'
+        'Moka',
+        'dog',
+        'Pastor Australiano',
+        '2016-11-10',
+        22.5,
+        'female',
+        'moka.jpg'
     ),
     (
-        2,
-        'Mimi',
-        'gato',
-        'Siamês',
-        '2021-09-20',
+        1,
+        'Sol',
+        'dog',
+        'Podengo Português',
+        '2021-11-15',
+        12.0,
+        'female',
+        'sol.jpg'
+    ),
+    (
+        1,
+        'Beth',
+        'dog',
+        'Puddle',
+        '1943-06-05',
+        8.5,
+        'female',
+        'beth.jpg'
+    ),
+    (
+        1,
+        'Moretta',
+        'cat',
+        'Capeta',
+        '2018-12-12',
         4.2,
-        'fêmea',
-        'https://example.com/mimi.jpg'
+        'female',
+        'moretta.jpg'
     );
 
 -- Vacinas
@@ -260,49 +274,49 @@ INSERT INTO
 VALUES (
         'V8',
         'Protege contra cinomose, hepatite, parvovirose, parainfluenza e leptospirose.',
-        'cachorro',
+        'dog',
         8,
         12
     ),
     (
         'V10',
         'Inclui todas as doenças da V8 + duas cepas adicionais de leptospirose.',
-        'cachorro',
+        'dog',
         8,
         12
     ),
     (
         'Antirrábica',
         'Previne raiva canina, obrigatória por lei.',
-        'cachorro',
+        'dog',
         12,
         12
     ),
     (
         'Gripe Canina',
         'Previne a tosse dos canis (traqueobronquite infecciosa).',
-        'cachorro',
+        'dog',
         12,
         12
     ),
     (
         'Tríplice Felina (V3)',
         'Protege contra rinotraqueíte, calicivirose e panleucopenia.',
-        'gato',
+        'cat',
         8,
         12
     ),
     (
         'Quádrupla Felina (V4)',
         'Inclui clamidiose felina além das doenças da V3.',
-        'gato',
+        'cat',
         8,
         12
     ),
     (
         'Antirrábica',
         'Previne raiva felina, obrigatória por lei.',
-        'gato',
+        'cat',
         12,
         12
     );
@@ -320,35 +334,35 @@ VALUES (
         'Revolution',
         'antiparasitário',
         'Protege contra pulgas, sarna, vermes intestinais e dirofilariose.',
-        'cachorro',
+        'dog',
         30
     ),
     (
         'NexGard',
         'antipulgas',
         'Comprimido mastigável contra pulgas e carrapatos.',
-        'cachorro',
+        'dog',
         30
     ),
     (
         'Drontal Plus',
         'vermicida',
         'Elimina vermes intestinais (nematódeos e cestódeos).',
-        'cachorro',
+        'dog',
         90
     ),
     (
         'Revolution Gato',
         'antiparasitário',
         'Protege contra pulgas, ácaros e vermes intestinais.',
-        'gato',
+        'cat',
         30
     ),
     (
         'Drontal Gato',
         'vermicida',
         'Comprimido de amplo espectro contra vermes intestinais.',
-        'gato',
+        'cat',
         90
     );
 
@@ -435,24 +449,24 @@ INSERT INTO
 VALUES (
         1,
         1,
-        'Revolution - Thor',
-        'Hora de aplicar Revolution no Thor.',
+        'Revolution - Moka',
+        'Hora de aplicar Revolution no Moka.',
         '2025-10-30 09:00:00',
         'whatsapp'
     ),
     (
         1,
         1,
-        'V10 - Thor',
+        'V10 - Moka',
         'Próxima dose da V10 está próxima!',
         '2025-06-01 10:00:00',
         'email'
     ),
     (
-        2,
-        2,
-        'Vermífugo - Mimi',
-        'Lembrete de vermífugo para Mimi.',
+        1,
+        4,
+        'Vermífugo - Moretta',
+        'Lembrete de vermífugo para Moretta.',
         '2025-12-10 08:00:00',
         'email'
     );
