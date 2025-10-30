@@ -3,10 +3,10 @@ import { RolesController } from '../controllers/rolesController';
 
 const router = express.Router();
 
-router.get('/', RolesController.getAll);
-router.get('/:id', RolesController.getById);
-router.post('/', RolesController.create);
-router.put('/:id', RolesController.update);
-router.delete('/:id', RolesController.delete);
+router.get('/roles', RolesController.getAll);
+router.get('/roles/:id', RolesController.getById);
+router.post('/roles', RolesController.create);
+router.put('/roles/:id', RolesController.update);
+router.delete('/roles/:id', RolesController.delete);
 
 export default router;
