@@ -1,12 +1,13 @@
-import express from "express";
+import { Router } from "express";
 import { VaccineController } from "../controllers/vaccineController";
+import { authenticateToken } from "../middlewares/authMiddleware";
 
-const router = express.Router();
+const router = Router();
 
-router.get("/vaccine", VaccineController.getAll);
-router.get("/vaccine/:id", VaccineController.getById);
-router.post("/vaccine", VaccineController.create);
-router.put("/vaccine/:id", VaccineController.update);
-router.delete("/vaccine/:id", VaccineController.delete);
+router.get("/vaccine", authenticateToken, VaccineController.getAll);
+router.get("/vaccine/:id", authenticateToken, VaccineController.getById);
+router.post("/vaccine", authenticateToken, VaccineController.create);
+router.put("/vaccine/:id", authenticateToken, VaccineController.update);
+router.delete("/vaccine/:id", authenticateToken, VaccineController.delete);
 
 export default router;

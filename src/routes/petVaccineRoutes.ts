@@ -1,13 +1,14 @@
-import express from "express";
+import { Router } from "express";
 import { PetVaccineController } from "../controllers/petVaccineController";
+import { authenticateToken } from "../middlewares/authMiddleware";
 
-const router = express.Router();
+const router = Router();
 
-router.get("/pet-vaccine", PetVaccineController.getAll);
-router.get("/pet-vaccine/:id", PetVaccineController.getById);
-router.get("/pet-vaccine/pet/:petId", PetVaccineController.getByPet);
-router.post("/pet-vaccine", PetVaccineController.create);
-router.put("/pet-vaccine/:id", PetVaccineController.update);
-router.delete("/pet-vaccine/:id", PetVaccineController.delete);
+router.get("/pet-vaccine", authenticateToken, PetVaccineController.getAll);
+router.get("/pet-vaccine/:id", authenticateToken, PetVaccineController.getById);
+router.get("/pet-vaccine/pet/:petId", authenticateToken, PetVaccineController.getByPet);
+router.post("/pet-vaccine", authenticateToken, PetVaccineController.create);
+router.put("/pet-vaccine/:id", authenticateToken, PetVaccineController.update);
+router.delete("/pet-vaccine/:id", authenticateToken, PetVaccineController.delete);
 
 export default router;

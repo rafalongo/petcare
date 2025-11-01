@@ -1,12 +1,13 @@
-import express from 'express';
-import { RolesController } from '../controllers/rolesController';
+// import { Router } from 'express';
+// import { RolesController } from '../controllers/rolesController';
+// import { authenticateToken } from "../middlewares/authMiddleware";
 
-const router = express.Router();
+// const router = Router();
 
-router.get('/roles', RolesController.getAll);
-router.get('/roles/:id', RolesController.getById);
-router.post('/roles', RolesController.create);
-router.put('/roles/:id', RolesController.update);
-router.delete('/roles/:id', RolesController.delete);
+// router.get('/roles', authenticateToken, RolesController.getAll);
+// router.get('/roles/:id', authenticateToken, RolesController.getById);
+// router.post('/roles', authenticateToken, RolesController.create);
+// router.put('/roles/:id', authenticateToken, RolesController.update);
+// router.delete('/roles/:id', authenticateToken, RolesController.delete);
 
-export default router;
+// export default router;

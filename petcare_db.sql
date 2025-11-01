@@ -200,13 +200,15 @@ INSERT INTO
         name,
         email,
         password_hash,
-        phone
+        phone,
+        role_id
     )
 VALUES (
         'Rafael Longo',
         'rafalongo@gmail.com',
         '$2b$10$0DgSzZkjUPKZK/G6eTzM..MR50Bls4RAGuvPEoJlQGGD4uB9XBBTa',
-        '+55 11 98871-9926'
+        '+55 11 98871-9926',
+        1
     );
 
 -- Pets

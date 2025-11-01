@@ -17,7 +17,7 @@ export const UserController = {
     if (!valid) return res.status(401).json({ message: "Senha incorreta" });
 
     // Gera o access token (válido por 1h, por exemplo)
-    const access_token = Token.generate({ id: user.id, email: user.email });
+    const access_token = Token.generate({ id: user.id, email: user.email, role_id: user.role_id });
 
     // Gera e salva o refresh token (válido por 7 dias)
     const { token: refresh_token, expires_at } = AuthModel.generateRefreshToken(user.id);
