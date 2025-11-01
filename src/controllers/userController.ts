@@ -2,6 +2,7 @@ import bcrypt from "bcrypt";
 import { Request, Response } from "express";
 import { Token } from "../utils/token";
 import { UserModel } from "../models/userModel";
+import { RoleModel } from "../models/roleModel";
 import { AuthModel } from "../models/authModel";
 import { RefreshTokenModel } from "../models/refreshTokenModel";
 
@@ -16,8 +17,11 @@ export const UserController = {
     const valid = await bcrypt.compare(password, user.password_hash);
     if (!valid) return res.status(401).json({ message: "Senha incorreta" });
 
+    const role = await RoleModel.findById(Number(user.role_id));
+    if (!role) return res.status(404).json({ error: "Role não encontrada." });
+
     // Gera o access token (válido por 1h, por exemplo)
-    const access_token = Token.generate({ id: user.id, email: user.email, role_id: user.role_id });
+    const access_token = Token.generate({ id: user.id, email: user.email, role });
 
     // Gera e salva o refresh token (válido por 7 dias)
     const { token: refresh_token, expires_at } = AuthModel.generateRefreshToken(user.id);
@@ -72,12 +76,12 @@ export const UserController = {
 
   // CRIAR USUÁRIO
   async create(req: Request, res: Response) {
-    const { name, email, password, phone } = req.body;
+    const { name, email, password, phone, role_id } = req.body;
     const existing = await UserModel.findByEmail(email);
     if (existing) return res.status(400).json({ message: "Email já cadastrado" });
 
     const password_hash = await bcrypt.hash(password, 10);
-    const user = await UserModel.create({ name, email, password_hash, phone });
+    const user = await UserModel.create({ name, email, password_hash, phone, role_id });
     res.status(201).json(user);
   },
 

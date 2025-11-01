@@ -6,6 +6,7 @@ export interface User {
   email: string;
   password_hash: string;
   phone?: string;
+  role_id: number
 }
 
 export const UserModel = {
@@ -20,10 +21,10 @@ export const UserModel = {
   },
 
   async create(user: User) {
-    const { name, email, password_hash, phone } = user;
+    const { name, email, password_hash, phone, role_id } = user;
     const [result]: any = await db.query(
-      "INSERT INTO users (name, email, password_hash, phone) VALUES (?, ?, ?, ?)",
-      [name, email, password_hash, phone]
+      "INSERT INTO users (name, email, password_hash, phone, role_id) VALUES (?, ?, ?, ?, ?)",
+      [name, email, password_hash, phone, role_id]
     );
     return { id: result.insertId, ...user };
   },

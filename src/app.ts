@@ -2,7 +2,6 @@ import express from "express";
 import cors from "cors";
 import bodyParser from "body-parser";
 import userRoutes from "./routes/userRoutes";
-// import rolesRoutes from "./routes/rolesRoutes";
 import authRoutes from "./routes/authRoutes";
 import petRoutes from "./routes/petRoutes";
 import vaccineRoutes from "./routes/vaccineRoutes";
@@ -20,7 +19,6 @@ app.use(bodyParser.json());
 app.use(
     "/api",
     userRoutes,
-    // rolesRoutes,
     authRoutes,
     petRoutes,
     vaccineRoutes,
